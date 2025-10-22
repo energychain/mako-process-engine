@@ -1,0 +1,59 @@
+process:
+  id: '17009'
+  name: Anfrage Stammdaten Marktlokation
+  category: WiM
+  version: '3.1'
+  description: Anfrage von Stammdaten zu einer Marktlokation im Rahmen der Marktkommunikation.
+  bdew_reference: ORDERS AHB
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - bf18a85c-17ef-5b97-b7bf-3e9600cb7678
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 43ab3997-7a51-58bc-8734-1a5cb541a489
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 15b9b7f6-dfb9-4d0c-868e-09abe2623576
+      - 28927676-b230-4a28-9f27-a7e6712efb23
+      - dd510667-fa2f-4968-8db7-79102c3a5879
+      - afe81581-1394-43ac-86b4-012be9ee9ccf
+      - e9d4a190-4c61-48b2-b0da-4c1fbed197c9
+      - cd38f4a0-6810-4f13-9e99-61ade459a94c
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 17009 (wim).
+    total_results: 10
+    search_duration_ms: 1779
+    response_format: json
+    captured_at: '2025-10-21T12:08:34.721Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '17009'
+  direction: outbound
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: ORDRSP
+    pruefidentifikator: '19009'
+    direction: outbound
+    description: Antwort auf Stammdatenanfrage
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '19009'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokations-ID
+    rule: valid_mp_id
+    message: Die Marktlokations-ID muss gültig sein.
+    severity: error
+documentation: {}

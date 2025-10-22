@@ -1,0 +1,61 @@
+process:
+  id: '37005'
+  name: Datenänderung / Mitteilung (WiM)
+  category: WiM
+  version: '3.1'
+  description: >-
+    Ein generischer Prozess für Datenänderungen oder Mitteilungen im Rahmen der Wechselprozesse im Messwesen (WiM),
+    abgebildet durch Prüfidentifikator 37005. Detaillierte Spezifikationen sind in den jeweiligen AHBs zu finden.
+  bdew_reference: Anwendungsübersicht der Prüfidentifikatoren
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - 9ef32157-b027-47f3-8db4-f9805d706513
+      - dd510667-fa2f-4968-8db7-79102c3a5879
+      - 1e40cee4-1331-42c2-b050-80903602b44a
+      - 8d613e61-451a-4541-887d-4893569383f2
+      - 5154f383-289d-4c36-bebe-25cd371d29d8
+      - be81b4e0-f1ea-4bd0-bf06-d0fe043c7d7c
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37005 (wim).
+    total_results: 10
+    search_duration_ms: 1788
+    response_format: json
+    captured_at: '2025-10-21T12:12:42.951Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37005'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE BASIEREND AUF AHB DEFINIEREN'
+  receiver_role: 'TODO: EMPFÄNGERROLLE BASIEREND AUF AHB DEFINIEREN'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Bestätigung des Empfangs und der syntaktischen Prüfung der Nachricht.
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Wartet auf technische Bestätigung
+    is_final: false
+    timeout_days: 1
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: RFF segment mit Prüfidentifikator 37005
+    rule: exists
+    message: Der Prüfidentifikator 37005 muss im entsprechenden RFF Segment der Nachricht vorhanden sein.
+    severity: error
+documentation: {}

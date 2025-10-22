@@ -1,0 +1,61 @@
+process:
+  id: '23003'
+  name: Ablehnung einer WiM-Meldung
+  category: WiM
+  version: 'TODO: prior to current AHB versions (e.g., 2.x)'
+  description: >-
+    Ablehnung einer Meldung im Rahmen der Wirksamkeitsmessung (WiM) vom Messstellenbetreiber (MSB) an den Lieferanten
+    (LF) oder Netzbetreiber (NB).
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 2a4badef-c6b8-4210-9ada-8933ede334cd
+      - e9925758-d907-51f0-b3ad-3443c4f78547
+      - 1a518998-0752-5c29-badf-d44f144ce389
+      - 4dded481-5585-53e0-9068-30cce81a3082
+      - dbd1cbd8-608d-5003-b491-9beb2795ea12
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23003 (wim).
+    total_results: 10
+    search_duration_ms: 1805
+    response_format: json
+    captured_at: '2025-10-21T12:15:15.970Z'
+trigger:
+  message_type: ORDRSP
+  pruefidentifikator: '23003'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF | NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '23003'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 23003.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warte auf technische Empfangsbestätigung der Ablehnung
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+      - '23003'
+  completed:
+    name: Ablehnung erfolgreich übermittelt und bestätigt
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Relevantes Segment/Datenelement'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

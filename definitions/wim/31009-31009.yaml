@@ -1,0 +1,58 @@
+process:
+  id: '31009'
+  name: MSB-Rechnung
+  category: WiM
+  version: TODO_2.6
+  description: Abrechnung des Messstellenbetriebs durch den Messstellenbetreiber (MSB)
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31009 (wim).
+    total_results: 10
+    search_duration_ms: 1912
+    response_format: json
+    captured_at: '2025-10-21T12:23:44.366Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31009'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Quittierung der MSB-Rechnung
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: MSB-Rechnung gesendet
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+  completed:
+    name: MSB-Rechnung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Messlokations-ID
+    rule: exists
+    message: Die Messlokations-ID muss in der MSB-Rechnung vorhanden sein.
+    severity: error
+documentation: {}

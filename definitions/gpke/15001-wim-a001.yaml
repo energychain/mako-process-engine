@@ -1,0 +1,57 @@
+process:
+  id: wim-a001
+  name: Anmeldung nach WiM
+  category: WiM
+  version: '2.6'
+  description: Prozessschritt zur Anmeldung nach WiM.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 7e8eaa34-608d-55eb-81a2-0b69884c3007
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 0abbecb3-0770-4964-a334-1142fc11bab6
+      - 6e1dd20a-1c7d-4da2-9134-f2e9fdd49bef
+      - f8c379dc-1bd6-4170-b160-013564e44d83
+      - 829a4baa-56a2-4078-b234-012829df521b
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - 8b3bbbd1-abc2-41f3-b225-2d5ea73af5ec
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - 3c347616-5607-5659-9297-e42c1cf58bb6
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_A001 (gpke).
+    total_results: 10
+    search_duration_ms: 2032
+    response_format: json
+    captured_at: '2025-10-21T08:45:05.733Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '15001'
+  direction: outbound
+  sender_role: MSBA
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '15001'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 15001.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '15001'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations:
+  - field: RFF
+    rule: exists
+    message: Prüfidentifikator muss vorhanden sein.
+    severity: error
+documentation: {}

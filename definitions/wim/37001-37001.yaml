@@ -1,0 +1,68 @@
+process:
+  id: '37001'
+  name: 'TODO: Name des Prozesses für Prüfidentifikator 37001 (z.B. Stammdatenänderung)'
+  category: WiM
+  version: '3.1'
+  description: >-
+    TODO: Detaillierte Beschreibung des Prozesses für Prüfidentifikator 37001, basierend auf den zugehörigen
+    Marktprozessen im Rahmen der WiM.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - ad63db75-7e0b-4430-a90e-b90f1c7f3f59
+      - 9deed57c-0f5a-44e6-a61e-c83be932cf88
+      - f49b4533-88ac-4200-8643-bcd9c48567d5
+      - d8bd11f6-f6a9-4f6e-9c88-fc05aa201465
+      - 1e40cee4-1331-42c2-b050-80903602b44a
+      - 3b17f58a-0541-4d6b-8b4c-e5a89df1d882
+      - f297f3aa-52ad-4bcd-aa3b-32e8fc0dc245
+      - a49efe0a-2d89-48b2-97d0-47899462e634
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37001 (wim).
+    total_results: 10
+    search_duration_ms: 1816
+    response_format: json
+    captured_at: '2025-10-21T12:10:19.740Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37001'
+  direction: bidirectional
+  sender_role: 'TODO: ROLLE DES SENDERS (Z.B. MSB, LF, NB)'
+  receiver_role: 'TODO: ROLLE DES EMPFÄNGERS (Z.B. MSB, LF, NB)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Empfangsbestätigung und ggf. fachliche Fehlerprüfung
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf APERAK
+    is_final: false
+    timeout_days: 3
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: RFF+Z13
+    rule: exists
+    message: Der Prüfidentifikator (RFF+Z13) muss vorhanden sein.
+    severity: error
+  - field: NAD+MR
+    rule: valid_mp_id
+    message: Die Marktlokations-ID muss gültig sein.
+    severity: error
+  - field: DTM+137
+    rule: future_date
+    message: Das Datum des Dokuments (DTM+137) sollte nicht in der Vergangenheit liegen.
+    severity: warning
+documentation: {}

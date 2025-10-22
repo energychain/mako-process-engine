@@ -1,0 +1,75 @@
+process:
+  id: 23005-wim-todo
+  name: 'WiM Prozess für Prüfidentifikator 23005 (TODO: Detaillierte Beschreibung)'
+  category: WiM
+  version: '2.6'
+  description: >-
+    Prozessdefinition für den Prüfidentifikator 23005 im Kontext der WiM. Die genauen Details sind in den
+    bereitgestellten Quellen nicht explizit für 23005 aufgeführt, es wird jedoch erwähnt, dass Prüfidentifikatoren
+    dieser Kategorie (23003, 23004, 23008) im WiM-Kontext verwendet werden, aber aus einer älteren Version stammen und
+    nicht zu den aktuellen AHB-Anwendungsfällen passen. Die hier getroffenen Annahmen basieren auf dem allgemeinen
+    Kontext der WiM-Kommunikation.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 2a4badef-c6b8-4210-9ada-8933ede334cd
+      - e7bb7540-f214-5866-a4ac-d6bca5bc6215
+      - 1a1e6baf-5954-5354-963b-246241faadb9
+      - 41b6490c-2b1e-528a-94fd-9057b7c4dd20
+      - 019e6590-eded-5aac-8938-0600fbd4eef3
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23005 (wim).
+    total_results: 10
+    search_duration_ms: 1789
+    response_format: json
+    captured_at: '2025-10-21T12:16:30.397Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '23005'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Erwartete Bestätigung oder Ablehnung des durch 23005 ausgelösten Prozesses.
+    max_wait_days: 5
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort zu WiM-Prozess 23005
+    is_final: false
+    timeout_days: 7
+    expected_responses:
+      - '00000'
+  completed:
+    name: WiM-Prozess 23005 abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: SG4 RFF+Z13
+    rule: exists
+    message: Das Segment RFF+Z13 mit dem Prüfidentifikator 23005 muss vorhanden sein.
+    severity: error
+  - field: NAD+MS
+    rule: exists
+    message: Der Absender (Messstellenbetreiber) muss im Segment NAD+MS angegeben sein.
+    severity: error
+  - field: NAD+DP
+    rule: exists
+    message: Der Empfänger (Lieferant) muss im Segment NAD+DP angegeben sein.
+    severity: error
+  - field: DTM+137
+    rule: exists
+    message: Das Datum der Nachricht (DTM+137) muss vorhanden sein.
+    severity: error
+documentation: {}

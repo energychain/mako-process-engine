@@ -1,0 +1,65 @@
+process:
+  id: '31006'
+  name: Mehr-/Mindermengen (MMM) selbstausgestellte Rechnung
+  category: WiM
+  version: '2.6'
+  description: >-
+    Abbildung einer selbstausgestellten Rechnung für Mehr-/Mindermengen in der Sparte Gas, die vom Netzbetreiber an den
+    Marktgebietsverantwortlichen gesendet wird. Dies entspricht einer Gutschrift, bei der der Empfänger der Leistung
+    (Netzbetreiber) die Abrechnung im Namen des Leistenden (Marktgebietsverantwortlicher) erstellt.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - 90f6d24b-d155-5076-bfd6-995af161472a
+      - 5e8f47e1-a55c-5203-a537-f660655ecba9
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - 126b6a87-151e-5487-b1d5-dc5007243bff
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31006 (wim).
+    total_results: 10
+    search_duration_ms: 1777
+    response_format: json
+    captured_at: '2025-10-21T12:22:16.573Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31006'
+  direction: outbound
+  sender_role: NETZBETREIBER
+  receiver_role: MARKTGEBIETSVERANTWORTLICHER
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Funktionale Bestätigung oder Ablehnung der selbstausgestellten Rechnung.
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Warte auf Rechnungsbestätigung
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+  completed:
+    name: Rechnung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Rechnungsnummer
+    rule: exists
+    message: Die Rechnungsnummer muss vorhanden sein.
+    severity: error
+  - field: Marktlokations-ID
+    rule: valid_mp_id
+    message: Eine gültige Marktlokations-ID muss angegeben werden.
+    severity: error
+documentation: {}

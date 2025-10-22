@@ -1,0 +1,34 @@
+name: Sync Definitions from Willi Mako
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate process definitions
+        env:
+          WILLI_MAKO_TOKEN: ${{ secrets.WILLI_MAKO_TOKEN }}
+        run: npm run definitions:generate
+
+      - name: Commit updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: sync process definitions"
+          branch: main

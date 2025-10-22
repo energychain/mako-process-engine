@@ -1,0 +1,58 @@
+process:
+  id: '27002'
+  name: 'TODO: Name für Prüfidentifikator 27002'
+  category: WiM
+  version: '2.6'
+  description: 'TODO: Detaillierte Beschreibung für Prüfidentifikator 27002 im WiM-Kontext.'
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 126b6a87-151e-5487-b1d5-dc5007243bff
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - dce490a2-ee58-5cfc-9534-d2d032e46542
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+      - fe3cc5c5-a930-51e9-ba24-2d6a280c30ad
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 27002 (wim).
+    total_results: 10
+    search_duration_ms: 1801
+    response_format: json
+    captured_at: '2025-10-21T12:26:04.500Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '27002'
+  direction: bidirectional
+  sender_role: TODO
+  receiver_role: TODO
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 7
+    transitions_to: completed
+states:
+  pending:
+    name: 27002 Bearbeitung ausstehend
+    is_final: false
+    timeout_days: 7
+    expected_responses:
+      - '00000'
+  completed:
+    name: 27002 Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Feldname (z.B. EIC-Code)'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: warning
+documentation: {}

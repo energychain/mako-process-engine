@@ -1,0 +1,60 @@
+process:
+  id: gpke-anmeldung-nn
+  name: GPKE Anmeldung Netzbetrieb
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Anmeldung eines neuen Netznutzers beim zuständigen Netzbetreiber inklusive Versand der UTILMD-Nachricht und
+    nachfolgender Statusüberwachung der Eingangsbestätigung.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - d20450bb-47dd-4184-8183-de6bd58daf2b
+      - e3639667-631a-4ee8-a8bf-0ea4637075f6
+      - d8bd11f6-f6a9-4f6e-9c88-fc05aa201465
+      - 2311a41b-d773-474c-affa-ca645fee36d3
+      - f49b4533-88ac-4200-8643-bcd9c48567d5
+      - 71fe883d-87af-4631-9255-61de4835b393
+      - ec3a56ef-5b05-42a5-945d-b50b6bcfb8f6
+      - 26eb3776-ca5a-45ea-a416-de217d544879
+      - e72f3972-f2d8-4291-99ea-68ff5dc6ec52
+      - e9d4a190-4c61-48b2-b0da-4c1fbed197c9
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 44001 (gpke).
+    total_results: 10
+    search_duration_ms: 1796
+    response_format: json
+    captured_at: '2025-10-21T12:04:07.412Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '44001'
+  direction: outbound
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '11001'
+    direction: inbound
+    description: Eingangsbestaetigung zur Anmeldung beim Netzbetreiber.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf APERAK des Netzbetreibers
+    is_final: false
+    expected_responses:
+      - '11001'
+    timeout_days: 3
+  completed:
+    name: Anmeldung bestätigt
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: zustandsdaten.anmeldung.netzbetreiber
+    rule: exists
+    message: Netzbetreiber muss in der Meldung gesetzt sein.
+    severity: error
+documentation: {}

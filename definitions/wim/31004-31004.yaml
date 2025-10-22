@@ -1,0 +1,54 @@
+process:
+  id: '31004'
+  name: Stornorechnung Bedingung
+  category: WiM
+  version: 2.5d
+  description: Kommunikation einer Stornorechnung vom Rechnungssteller (ReErst) an den Rechnungsempfänger (ReEmpf).
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - 2c05f53d-f0a4-5854-9860-c4587b0644ba
+      - 76e19363-1b4b-58ea-8053-02f772132821
+      - 92175f2e-ed3d-514f-ae11-fad3c8bbcc10
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31004 (wim).
+    total_results: 10
+    search_duration_ms: 1824
+    response_format: json
+    captured_at: '2025-10-21T12:20:54.359Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31004'
+  direction: outbound
+  sender_role: REERST
+  receiver_role: REEMPF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Bestätigung des Empfangs der Stornorechnung.
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Stornorechnung gesendet
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+  completed:
+    name: Stornorechnung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations: []
+documentation: {}

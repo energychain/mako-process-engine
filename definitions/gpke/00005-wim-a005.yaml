@@ -1,0 +1,56 @@
+process:
+  id: wim-a005
+  name: Prozessdefinition für WiM_A005
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Die spezifischen Details für den Prüfidentifikator WiM_A005 konnten in den bereitgestellten Kontextauszügen nicht
+    gefunden werden. Eine vollständige Prozessbeschreibung erfordert weitere Informationen zu Anwendungsfall,
+    Kommunikation, Zuordnung und Validierungsregeln.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 7e8eaa34-608d-55eb-81a2-0b69884c3007
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - 1e7ce115-afcd-5824-8ee6-888cba7e5b89
+      - a72b7285-2817-55b8-8183-c7c306196f42
+      - 6140421f-447c-5207-850e-59fee3b54bc6
+      - 4dc9000c-477e-5459-a857-f5e9aa5870af
+      - eb554c92-4658-4960-9809-cfd49ae7b289
+      - 8dfaf9ff-548d-4085-aaf4-810782470337
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_A005 (gpke).
+    total_results: 10
+    search_duration_ms: 2046
+    response_format: json
+    captured_at: '2025-10-21T08:46:09.337Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00005'
+  direction: bidirectional
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00005'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00005.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00005'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

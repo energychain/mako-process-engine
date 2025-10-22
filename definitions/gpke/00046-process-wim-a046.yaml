@@ -1,0 +1,56 @@
+process:
+  id: process-wim-a046
+  name: Prozess WiM_A046
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - c6a553ef-c9ba-f89a-b64f-bafcfdeaf6c2
+      - e3d91c35-095e-23f6-fea8-f276a6070fc4
+      - 0eb7fe99-991d-aa93-1ec0-d53afce8ef85
+      - ed1e86b7-2eac-f3bc-6844-3e0425318d4f
+      - 07585352-342d-5857-91b3-faa169b7abf8
+      - 17c03838-466e-59bc-84a6-3439efa21f99
+      - 13a42612-d0bf-5d60-b8bb-bb01ab098163
+      - 1633679e-6c1c-50cc-a772-7a4a55367d68
+      - 84033ce2-c6e2-5809-9823-ec311784f0ee
+      - 0a045f69-ed6f-5532-9ad0-4c1a9209fcb8
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_A046 (gpke).
+    total_results: 10
+    search_duration_ms: 2144
+    response_format: text
+    raw_response: >-
+      Es tut mir leid, aber ich kann den Prüfidentifikator WiM_A046 in den mir zur Verfügung stehenden Kontextauszügen
+      nicht finden. Daher kann ich keine vollständige Prozessdefinition dafür erstellen.
+    captured_at: '2025-10-21T08:46:24.776Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00046'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00046'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00046.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00046'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

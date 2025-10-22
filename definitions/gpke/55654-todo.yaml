@@ -1,0 +1,62 @@
+process:
+  id: todo
+  name: Änderung X
+  category: GPKE
+  version: TODO
+  description: Prozessdefinition für den Prüfidentifikator 55654 im Kontext GPKE.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - c11936e9-1b63-46c8-a628-2966d9ef9d49
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - b15eb7ec-a2eb-4740-9e45-e7a6e82ad66c
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 69335d35-9c5e-4a46-bc6b-091865f196c9
+      - 1e7ce115-afcd-5824-8ee6-888cba7e5b89
+      - a72b7285-2817-55b8-8183-c7c306196f42
+      - 5442e26b-075b-43eb-bcb3-f55b1a4007ed
+      - cd38f4a0-6810-4f13-9e99-61ade459a94c
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 55654 (gpke).
+    total_results: 10
+    search_duration_ms: 1853
+    response_format: json
+    captured_at: '2025-10-21T12:07:34.365Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '55654'
+  direction: inbound
+  sender_role: TODO
+  receiver_role: TODO
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: inbound
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 7
+    transitions_to: completed
+states:
+  pending:
+    name: Pending
+    is_final: false
+    timeout_days: 14
+    expected_responses:
+      - '00000'
+  completed:
+    name: Completed
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokation
+    rule: exists
+    message: Marktlokation muss vorhanden sein.
+    severity: error
+  - field: Marktlokation
+    rule: not_empty
+    message: Marktlokation darf nicht leer sein.
+    severity: error
+documentation: {}

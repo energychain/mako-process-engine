@@ -1,0 +1,54 @@
+process:
+  id: todo
+  name: TODO
+  category: WiM
+  version: TODO
+  description: TODO
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - e9925758-d907-51f0-b3ad-3443c4f78547
+      - 1a518998-0752-5c29-badf-d44f144ce389
+      - dbd1cbd8-608d-5003-b491-9beb2795ea12
+      - 4dded481-5585-53e0-9068-30cce81a3082
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - 126b6a87-151e-5487-b1d5-dc5007243bff
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 27003 (wim).
+    total_results: 10
+    search_duration_ms: 1841
+    response_format: json
+    captured_at: '2025-10-21T12:26:24.428Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '27003'
+  direction: bidirectional
+  sender_role: TODO
+  receiver_role: TODO
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '27003'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 27003.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: TODO
+    is_final: false
+    timeout_days: 0
+    expected_responses:
+      - '27003'
+  completed:
+    name: TODO
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations: []
+documentation: {}

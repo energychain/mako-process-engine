@@ -1,0 +1,54 @@
+process:
+  id: gpke-a005
+  name: Prüfidentifikator GPKE_A005
+  category: GPKE
+  version: '2.6'
+  description: Detaillierte Prozessbeschreibung für GPKE_A005 nicht im Kontext verfügbar.
+  bdew_reference: Hinweise GPKE
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - ef889753-c7b3-54fb-90ed-23473f2b5123
+      - 4cb80e3a-3a17-5d30-88a6-523ced68f788
+      - f7cff05f-f51d-563c-a429-700189a8220b
+      - bfc0f729-6c64-589c-b277-7771b9013fd0
+      - 40df8e02-b680-54ef-ab80-726db315d422
+      - 06195ed6-691d-57c3-a2f6-4ebfa96443dc
+      - 8ae7b6e0-eda3-5128-80ab-415d67aeb5e1
+      - c4fa97b9-c637-5c26-ac21-39517ef1c7f1
+      - 98b68fa5-f15e-5585-85c4-668153925057
+      - 3c347616-5607-5659-9297-e42c1cf58bb6
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A005 (gpke).
+    total_results: 10
+    search_duration_ms: 2720
+    response_format: json
+    captured_at: '2025-10-21T08:41:14.336Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00005'
+  direction: bidirectional
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00005'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00005.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00005'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

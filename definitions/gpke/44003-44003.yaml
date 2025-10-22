@@ -1,0 +1,67 @@
+process:
+  id: '44003'
+  name: 'TODO: Prozessname für Prüfidentifikator 44003 (Nicht explizit im Kontext gefunden)'
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Dies ist eine generische Prozessdefinition für den Prüfidentifikator 44003. Da spezifische Details für diesen
+    Prüfidentifikator in den bereitgestellten Kontextauszügen nicht explizit aufgeführt sind, basieren die hier
+    angegebenen Informationen auf allgemeinen Mustern der deutschen Marktkommunikation und sind entsprechend als 'TODO'
+    markiert.
+  bdew_reference: Anwendungsübersicht der Prüfidentifikatoren Version 3.1
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 1a518998-0752-5c29-badf-d44f144ce389
+      - e9925758-d907-51f0-b3ad-3443c4f78547
+      - dbd1cbd8-608d-5003-b491-9beb2795ea12
+      - 4dded481-5585-53e0-9068-30cce81a3082
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - b3b93277-f857-4625-86f5-cea471f2a732
+      - 265f7127-01c0-4f11-ad4e-3295713e990d
+      - fee27961-49c5-413c-9509-70ccc08d25e4
+      - 524db5ae-5905-49f7-a804-21f97cb2c087
+      - be81b4e0-f1ea-4bd0-bf06-d0fe043c7d7c
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 44003 (gpke).
+    total_results: 10
+    search_duration_ms: 1796
+    response_format: json
+    captured_at: '2025-10-21T12:05:08.203Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '44003'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. LF, NB, MSB)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. NB, LF, MSB)'
+responses:
+  - message_type: ORDRSP
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort für Prüfidentifikator 44003
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Prüfidentifikator
+    rule: exists
+    message: Der Prüfidentifikator muss in der Nachricht vorhanden sein.
+    severity: error
+  - field: 'TODO: Beispielhaftes Feld (z.B. Marktlokations-ID)'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

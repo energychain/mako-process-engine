@@ -1,0 +1,80 @@
+process:
+  id: process-gpke-a008
+  name: Prozess GPKE_A008
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - ef889753-c7b3-54fb-90ed-23473f2b5123
+      - f7cff05f-f51d-563c-a429-700189a8220b
+      - 06195ed6-691d-57c3-a2f6-4ebfa96443dc
+      - bfc0f729-6c64-589c-b277-7771b9013fd0
+      - c4fa97b9-c637-5c26-ac21-39517ef1c7f1
+      - 40df8e02-b680-54ef-ab80-726db315d422
+      - 98b68fa5-f15e-5585-85c4-668153925057
+      - 8ae7b6e0-eda3-5128-80ab-415d67aeb5e1
+      - 3c347616-5607-5659-9297-e42c1cf58bb6
+      - 4cb80e3a-3a17-5d30-88a6-523ced68f788
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A008 (gpke).
+    total_results: 10
+    search_duration_ms: 2499
+    response_format: text
+    raw_response: >-
+      Als Mako Willi, Ihr AI-Coach von Stromhaltig, muss ich Ihnen leider mitteilen, dass die spezifischen Details für
+      den Prüfidentifikator `GPKE_A008` nicht in den mir vorliegenden Kontextauszügen enthalten sind.
+
+
+      Die bereitgestellten Informationen beschreiben die Struktur und den Aufbau der "Anwendungsübersicht der
+      Prüfidentifikatoren", einschließlich der verschiedenen Tabellen und Regeln zur Interpretation. Sie erklären, *wo*
+      und *wie* man Informationen zu Prüfidentifikatoren finden könnte, liefern aber keine konkreten Einträge für
+      `GPKE_A008` selbst.
+
+
+      Um eine vollständige Prozessdefinition im gewünschten JSON-Format zu erstellen, benötige ich detailliertere
+      Angaben zu:
+
+      *   **Trigger:** Welcher Nachrichtentyp (`ORDERS`, `UTILMD`, etc.) löst `GPKE_A008` aus? Welche Sender- und
+      Empfängerrollen sind beteiligt?
+
+      *   **Responses:** Welche Prüfidentifikatoren sind als Reaktionen auf `GPKE_A008` vorgesehen? Welche
+      Beschreibungen, maximale Wartezeiten und Übergänge zu anderen Prozessen gibt es?
+
+      *   **Validations:** Welche spezifischen Validierungsregeln (z.B. für Felder, Längen, Datumsangaben) sind mit
+      `GPKE_A008` verbunden?
+
+
+      Bitte stellen Sie mir die relevanten Ausschnitte aus der "Tabelle 1: Prüfidentifikator zu Prozessschritt / API
+      Webservice zu Prozessschritt" und den dazugehörigen Tabellen 2, 3 und 4 zur Verfügung, die `GPKE_A008` detailliert
+      beschreiben.
+    captured_at: '2025-10-21T08:42:10.883Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00008'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00008'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00008.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00008'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

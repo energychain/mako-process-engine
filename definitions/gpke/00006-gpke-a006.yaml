@@ -1,0 +1,53 @@
+process:
+  id: gpke-a006
+  name: Unbekannter Prozess für Prüfidentifikator GPKE_A006
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - dfd9b902-4d52-d639-1da3-c4a2968ae3b9
+      - 699a70f3-abab-464c-0610-c556cf918068
+      - e6f51356-9826-8327-70b8-c96f33e3fe4a
+      - 7b6057a7-6431-0e2c-166f-dd6629b69206
+      - 4331d6ad-a771-ce9f-d10c-c6f8a1fde1c9
+      - 38a58a02-385f-4bce-4baf-de8546ac2b84
+      - dd221af5-fd08-4f65-8c75-12b0cfcf1ccc
+      - 7a063b4c-e506-4288-8c84-ebeaa6e53824
+      - cb6e0ac7-86cb-492b-af72-4482ef159f70
+      - 796f51b6-cadf-00d0-8dec-5f5112c4188b
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A006 (gpke).
+    total_results: 10
+    search_duration_ms: 3059
+    response_format: json
+    captured_at: '2025-10-21T08:41:52.247Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00006'
+  direction: bidirectional
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00006'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00006.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00006'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

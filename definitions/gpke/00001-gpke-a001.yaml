@@ -1,0 +1,75 @@
+process:
+  id: gpke-a001
+  name: Anmeldung Lieferantenwechsel
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Einleitung des Prozesses zur Anmeldung eines Lieferantenwechsels gemäß GPKE-Regelwerk. Dieser Prüfidentifikator
+    markiert den Beginn der Kommunikation für einen Lieferantenwechsel.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 7e8eaa34-608d-55eb-81a2-0b69884c3007
+      - ea724576-2a20-f471-753a-f951fedc811b
+      - 06195ed6-691d-57c3-a2f6-4ebfa96443dc
+      - c4fa97b9-c637-5c26-ac21-39517ef1c7f1
+      - ef889753-c7b3-54fb-90ed-23473f2b5123
+      - 3c347616-5607-5659-9297-e42c1cf58bb6
+      - 8ae7b6e0-eda3-5128-80ab-415d67aeb5e1
+      - f7cff05f-f51d-563c-a429-700189a8220b
+      - 98b68fa5-f15e-5585-85c4-668153925057
+      - 4cb80e3a-3a17-5d30-88a6-523ced68f788
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A001 (gpke).
+    total_results: 10
+    search_duration_ms: 2507
+    response_format: json
+    captured_at: '2025-10-21T08:39:22.742Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00001'
+  direction: inbound
+  sender_role: LIEFERANT
+  receiver_role: NETZBETREIBER
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: inbound
+    description: Empfangsbestätigung der Anmeldung
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00000'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations:
+  - field: MP_ID_Lieferant
+    rule: length_equals_11
+    message: Die Marktpartner-ID des sendenden Lieferanten muss genau 11 Stellen lang sein.
+    severity: error
+  - field: MP_ID_Netzbetreiber
+    rule: length_equals_11
+    message: Die Marktpartner-ID des empfangenden Netzbetreibers muss genau 11 Stellen lang sein.
+    severity: error
+  - field: Meldungsreferenz
+    rule: not_empty
+    message: Die Meldungsreferenz (UNB+BGM) darf nicht leer sein.
+    severity: error
+  - field: Beginn_Lieferung
+    rule: exists
+    message: Das Beginndatum der Lieferung (DTM+163) muss angegeben werden.
+    severity: error
+  - field: Beginn_Lieferung
+    rule: future_date
+    message: Das Beginndatum der Lieferung (DTM+163) muss in der Zukunft liegen.
+    severity: error
+documentation: {}

@@ -1,0 +1,103 @@
+process:
+  id: gpke-a002
+  name: Stammdatenänderung (Änderung Lieferant)
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Einleitende Meldung des neuen Lieferanten an den Netzbetreiber zur Ankündigung einer Stammdatenänderung
+    (Lieferantenwechsel) für eine Marktlokation.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 05187cac-81ef-5c87-a6f3-94cdefd8bd1e
+      - 06db483f-9d0e-5cf0-ac85-fd911dbd1045
+      - 07585352-342d-5857-91b3-faa169b7abf8
+      - 0a045f69-ed6f-5532-9ad0-4c1a9209fcb8
+      - 0b690a6f-dd17-5c45-b55e-46e5bcc73c64
+      - 1370e6a1-2ea4-5046-a288-35b32fc4c791
+      - 13a42612-d0bf-5d60-b8bb-bb01ab098163
+      - 1633679e-6c1c-50cc-a772-7a4a55367d68
+      - 17c03838-466e-59bc-84a6-3439efa21f99
+      - 84033ce2-c6e2-5809-9823-ec311784f0ee
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A002 (gpke).
+    total_results: 10
+    search_duration_ms: 2142
+    response_format: json
+    captured_at: '2025-10-21T08:40:06.747Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00002'
+  direction: outbound
+  sender_role: LIEFERANT
+  receiver_role: NETZBETREIBER
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Empfangsbestätigung der UTILMD-Nachricht.
+    max_wait_days: 1
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Empfangsbestätigung der UTILMD-Nachricht.
+    max_wait_days: 1
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00003'
+    direction: outbound
+    description: Bestätigung der Stammdatenänderung durch den Netzbetreiber.
+    max_wait_days: 2
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00004'
+    direction: outbound
+    description: Ablehnung der Stammdatenänderung durch den Netzbetreiber.
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00000'
+      - '00003'
+      - '00004'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations:
+  - field: Marktlokations-ID
+    rule: exists
+    message: Die Marktlokations-ID fehlt oder ist leer.
+    severity: error
+  - field: Marktlokations-ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: Marktlokations-ID
+    rule: valid_mp_id
+    message: Die Marktlokations-ID ist formal ungültig.
+    severity: error
+  - field: EIC-Code des neuen Lieferanten
+    rule: exists
+    message: Der EIC-Code des neuen Lieferanten fehlt oder ist leer.
+    severity: error
+  - field: Datum des Lieferantenwechsels
+    rule: exists
+    message: Das Datum des Lieferantenwechsels fehlt oder ist leer.
+    severity: error
+  - field: Datum des Lieferantenwechsels
+    rule: future_date
+    message: Das Datum des Lieferantenwechsels muss in der Zukunft liegen.
+    severity: error
+  - field: Prüfidentifikator im BGM-Segment
+    rule: exists
+    message: Der Prüfidentifikator im BGM-Segment muss 'GPKE_A002' sein.
+    severity: error
+documentation: {}

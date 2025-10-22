@@ -1,0 +1,74 @@
+process:
+  id: 37004-stammdaten-aenderung-mitteilung
+  name: Mitteilung Stammdatenänderung
+  category: WiM
+  version: '3.1'
+  description: >-
+    Prozess zur Übermittlung von Änderungen an Stammdaten einer Marktlokation oder Messlokation zwischen Marktpartnern
+    im Rahmen der Marktkommunikation. Dies kann beispielsweise Änderungen an Bilanzierungsdaten oder technischen
+    Parametern umfassen.
+  bdew_reference: Anwendungsübersicht der Prüfidentifikatoren
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - af24b0fb-7a01-57b0-87ce-028c694b7be4
+      - dd58790e-8892-58d1-8751-b4e8399857be
+      - 9ef32157-b027-47f3-8db4-f9805d706513
+      - d770a4f5-fce4-56c1-914e-94eee7f4b40e
+      - 8d7ae431-a1ad-5d11-b4cc-0d3a6e9557c8
+      - c44dd03b-29fc-581b-971a-cd80157e4422
+      - 5154f383-289d-4c36-bebe-25cd371d29d8
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37004 (wim).
+    total_results: 10
+    search_duration_ms: 1788
+    response_format: json
+    captured_at: '2025-10-21T12:12:03.682Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37004'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. NB, MSB)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. LF, NB)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '90000'
+    direction: outbound
+    description: Technische Bestätigung des Empfangs der UTILMD-Nachricht.
+    max_wait_days: 1
+    transitions_to: pending
+  - message_type: UTILMD
+    pruefidentifikator: '37005'
+    direction: outbound
+    description: Fachliche Bestätigung der verarbeiteten Stammdatenänderung oder Ablehnung mit Begründung.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Wartet auf Bestätigung der Stammdatenänderung
+    is_final: false
+    timeout_days: 7
+    expected_responses:
+      - '00000'
+      - '90000'
+      - '37005'
+  completed:
+    name: Stammdatenänderung erfolgreich verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokations-ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID ist ungültig oder fehlt im Segment BGM+Z36.
+    severity: error
+  - field: Messlokations-ID
+    rule: exists
+    message: Die Messlokations-ID ist ungültig oder fehlt im Segment BGM+Z37 (falls relevant).
+    severity: warning
+documentation: {}

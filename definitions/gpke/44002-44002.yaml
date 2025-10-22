@@ -1,0 +1,57 @@
+process:
+  id: '44002'
+  name: 'TODO: Process Name for 44002'
+  category: GPKE
+  version: '2.6'
+  description: 'TODO: Detailed description of the process for Prüfidentifikator 44002 based on GPKE guidelines.'
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - dce490a2-ee58-5cfc-9534-d2d032e46542
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - fe3cc5c5-a930-51e9-ba24-2d6a280c30ad
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 44002 (gpke).
+    total_results: 10
+    search_duration_ms: 1797
+    response_format: json
+    captured_at: '2025-10-21T12:04:29.232Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '44002'
+  direction: bidirectional
+  sender_role: 'TODO: SENDER ROLE FOR 44002'
+  receiver_role: 'TODO: RECEIVER ROLE FOR 44002'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '44002'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 44002.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Pending
+    is_final: false
+    expected_responses:
+      - '44002'
+  completed:
+    name: Completed
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Specific field for validation (e.g., DTM+137:Z01)'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

@@ -1,0 +1,76 @@
+process:
+  id: '17126'
+  name: Anfrage/Bestellung einer Definition (GeLi Gas)
+  category: GeLi Gas
+  version: '2.6'
+  description: >-
+    Dieser Prozess beschreibt die Anfrage oder Bestellung einer spezifischen Definition im Rahmen der GeLi Gas
+    Marktkommunikation, initiiert durch einen Marktteilnehmer.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 05d1d66a-6552-51f5-9f77-7318211511bb
+      - edbd3550-9251-595b-bbe7-af938b2d69ac
+      - 2fbfcb6b-aceb-5d05-90ad-f0e1a449c3ff
+      - 47550eba-8ace-5e50-b9cc-d310e0e39599
+      - a1285fde-5b76-5364-a68e-785ba9f9d33a
+      - d83852b6-9eba-5ed9-8774-658cc27351bb
+      - 10c59925-6a83-52b7-966a-3c32eeb8fa52
+      - c65b6de9-44ee-57a2-b624-93b0df30d91a
+      - 54e8ec79-137e-5ab7-9b9e-d89396807898
+      - d2b31c1e-3d85-5699-8403-5d0098102921
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 17126 (geli-gas).
+    total_results: 10
+    search_duration_ms: 1796
+    response_format: json
+    captured_at: '2025-10-21T12:27:33.137Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '17126'
+  direction: outbound
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: ORDRSP
+    pruefidentifikator: '17126'
+    direction: outbound
+    description: Mitteilung zum weiteren Vorgehen oder Ablehnung der Anfrage/Bestellung einer Definition.
+    max_wait_days: 2
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Ablehnung der ORDERS-Nachricht.
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Wartet auf Antwort zu Anfrage/Bestellung 17126
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00019'
+      - '00000'
+      - '17126'
+  completed:
+    name: Prozess 17126 abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokations-ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: Datum
+    rule: future_date
+    message: Das angegebene Datum sollte in der Zukunft liegen.
+    severity: warning
+  - field: BGM+7 (Referenznummer)
+    rule: exists
+    message: Die Referenznummer im BGM+7 Segment ist zwingend erforderlich.
+    severity: error
+documentation: {}

@@ -1,0 +1,69 @@
+process:
+  id: wim-ergebnisbericht-23008
+  name: WiM Ergebnisbericht
+  category: WiM
+  version: '2.6'
+  description: >-
+    Übermittlung eines Ergebnisberichts im Rahmen der Wirksamkeitsmessung (WiM) vom Messstellenbetreiber (MSB) an den
+    Lieferanten (LF) oder Netzbetreiber (NB). Dieser Prüfidentifikator stammt aus einer älteren Version und passt nicht
+    zu den aktuellen AHB-Anwendungsfallbeschreibungen.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 2a4badef-c6b8-4210-9ada-8933ede334cd
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - fe3cc5c5-a930-51e9-ba24-2d6a280c30ad
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+      - dce490a2-ee58-5cfc-9534-d2d032e46542
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23008 (wim).
+    total_results: 10
+    search_duration_ms: 1786
+    response_format: json
+    captured_at: '2025-10-21T12:17:16.134Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '23008'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF | NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '23008'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 23008.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ergebnisbericht gesendet
+    is_final: false
+    timeout_days: 1
+    expected_responses:
+      - '23008'
+  completed:
+    name: Ergebnisbericht verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: SG4 RFF+Z13
+    rule: exists
+    message: Das Segment RFF+Z13 mit dem Prüfidentifikator 23008 muss vorhanden sein.
+    severity: error
+  - field: Dokumenteninhalt
+    rule: not_empty
+    message: Der Ergebnisbericht muss relevante Daten enthalten.
+    severity: error
+  - field: Kommunikationspartner
+    rule: exists
+    message: Die Kommunikationspartner (MSB, LF/NB) müssen korrekt angegeben sein.
+    severity: error
+documentation: {}

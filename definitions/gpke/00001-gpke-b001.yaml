@@ -1,0 +1,111 @@
+process:
+  id: gpke-b001
+  name: Erstübermittlung Stammdaten und Prozessinitialisierung
+  category: GPKE
+  version: '2.6'
+  description: >-
+    Definiert die initialen Prüfungen und den Prozess für die erste Übermittlung relevanter Stammdaten zur Anbahnung
+    oder Änderung einer Marktkommunikationsbeziehung gemäß GPKE. Dies umfasst grundlegende Validierungen der
+    übermittelten Daten.
+  bdew_reference: BK6-22-128
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 06195ed6-691d-57c3-a2f6-4ebfa96443dc
+      - ef889753-c7b3-54fb-90ed-23473f2b5123
+      - bfc0f729-6c64-589c-b277-7771b9013fd0
+      - 8ae7b6e0-eda3-5128-80ab-415d67aeb5e1
+      - 4cb80e3a-3a17-5d30-88a6-523ced68f788
+      - c4fa97b9-c637-5c26-ac21-39517ef1c7f1
+      - 40df8e02-b680-54ef-ab80-726db315d422
+      - 3c347616-5607-5659-9297-e42c1cf58bb6
+      - f7cff05f-f51d-563c-a429-700189a8220b
+      - 98b68fa5-f15e-5585-85c4-668153925057
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_B001 (gpke).
+    total_results: 10
+    search_duration_ms: 2082
+    response_format: json
+    captured_at: '2025-10-21T08:47:43.297Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00001'
+  direction: inbound
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00001'
+    direction: inbound
+    description: >-
+      Fehler bei der initialen Datenprüfung gemäß GPKE_B001. Die übermittelten Stammdaten weisen Mängel auf und
+      erfordern eine Korrektur. Eine APERAK-Nachricht wird gesendet.
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00001'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations:
+  - field: MESSLOKATIONS_ID
+    rule: exists
+    message: Die Messlokations-ID muss vorhanden sein.
+    severity: error
+  - field: MESSLOKATIONS_ID
+    rule: not_empty
+    message: Die Messlokations-ID darf nicht leer sein.
+    severity: error
+  - field: MESSLOKATIONS_ID
+    rule: length_equals_11
+    message: Die Messlokations-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: MESSLOKATIONS_ID
+    rule: valid_mp_id
+    message: Die Messlokations-ID ist nicht gültig formatiert.
+    severity: error
+  - field: GUELTIG_AB_DATUM
+    rule: exists
+    message: Das Gültigkeits-Ab-Datum muss vorhanden sein.
+    severity: error
+  - field: GUELTIG_AB_DATUM
+    rule: not_empty
+    message: Das Gültigkeits-Ab-Datum darf nicht leer sein.
+    severity: error
+  - field: GUELTIG_AB_DATUM
+    rule: future_date
+    message: Das Gültigkeits-Ab-Datum liegt in der Vergangenheit. Bitte prüfen Sie die Korrektheit.
+    severity: warning
+  - field: NETZBETREIBER_ID
+    rule: exists
+    message: Die Netzbetreiber-ID muss vorhanden sein.
+    severity: error
+  - field: NETZBETREIBER_ID
+    rule: not_empty
+    message: Die Netzbetreiber-ID darf nicht leer sein.
+    severity: error
+  - field: NETZBETREIBER_ID
+    rule: length_equals_11
+    message: Die Netzbetreiber-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: LIEFERANTEN_ID
+    rule: exists
+    message: Die Lieferanten-ID muss vorhanden sein.
+    severity: error
+  - field: LIEFERANTEN_ID
+    rule: not_empty
+    message: Die Lieferanten-ID darf nicht leer sein.
+    severity: error
+  - field: LIEFERANTEN_ID
+    rule: length_equals_11
+    message: Die Lieferanten-ID muss genau 11 Zeichen lang sein.
+    severity: error
+documentation: {}

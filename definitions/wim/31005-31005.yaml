@@ -1,0 +1,84 @@
+process:
+  id: '31005'
+  name: MMM-Rechnung
+  category: WiM
+  version: TODO
+  description: Prozess zur Abrechnung von Mehr-/Mindermengen (MMM) zwischen Marktpartnern.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - 90f6d24b-d155-5076-bfd6-995af161472a
+      - 5e8f47e1-a55c-5203-a537-f660655ecba9
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 25992efd-5da4-51f9-b278-03ee671d5fb9
+      - f590644f-2f89-5b64-961b-55a4b4bcf31e
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31005 (wim).
+    total_results: 10
+    search_duration_ms: 1776
+    response_format: json
+    captured_at: '2025-10-21T12:21:38.129Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31005'
+  direction: outbound
+  sender_role: 'TODO: NETZBETREIBER | LIEFERANT'
+  receiver_role: 'TODO: LIEFERANT | NETZBETREIBER'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Positive Bestätigung des Empfangs und der fachlichen Richtigkeit der MMM-Rechnung.
+    max_wait_days: 2
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Ablehnung der MMM-Rechnung aufgrund fachlicher Fehler.
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: MMM-Rechnung gesendet, auf fachliche Bestätigung wartend
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '00000'
+  completed:
+    name: MMM-Rechnungsprozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: UNH-0062
+    rule: exists
+    message: Die eindeutige Nachrichtennummer (Message Reference Number) muss vorhanden sein.
+    severity: error
+  - field: NAD+MS
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Senders (MS) muss gültig sein.
+    severity: error
+  - field: NAD+MR
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Empfängers (MR) muss gültig sein.
+    severity: error
+  - field: DTM+137
+    rule: exists
+    message: Das Rechnungsdatum (DTM+137) muss vorhanden sein.
+    severity: error
+  - field: MOA+203
+    rule: not_empty
+    message: Der Gesamtrechnungsbetrag (MOA+203) muss angegeben werden.
+    severity: error
+  - field: LIN+702
+    rule: exists
+    message: Positionen für Mehr-/Mindermengen (LIN+702) müssen detailliert aufgeführt sein.
+    severity: error
+documentation: {}

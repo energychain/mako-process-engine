@@ -1,0 +1,68 @@
+process:
+  id: 31008-aggr-mmm-selbst-rechnung
+  name: Aggregierte Mehr-/Mindermenge – selbst ausgestellte Rechnung
+  category: WiM
+  version: '2.6'
+  description: >-
+    Abbildung der Mehr-/Mindermengen von Netzbetreibern an Marktgebietsverantwortliche in der Sparte Gas. Es handelt
+    sich um eine selbst ausgestellte Rechnung.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - dce490a2-ee58-5cfc-9534-d2d032e46542
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31008 (wim).
+    total_results: 10
+    search_duration_ms: 1936
+    response_format: json
+    captured_at: '2025-10-21T12:23:22.009Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31008'
+  direction: outbound
+  sender_role: NB
+  receiver_role: MGV
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Empfangsbestätigung der selbst ausgestellten Rechnung
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Empfangsbestätigung
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '00000'
+  completed:
+    name: Rechnung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: MP-ID
+    rule: valid_mp_id
+    message: Die Marktpartner-ID ist ungültig oder fehlt.
+    severity: error
+  - field: Rechnungsbetrag
+    rule: exists
+    message: Der Rechnungsbetrag muss vorhanden sein.
+    severity: error
+  - field: Rechnungsperiode
+    rule: exists
+    message: Die Rechnungsperiode muss angegeben sein.
+    severity: error
+documentation: {}

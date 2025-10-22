@@ -1,0 +1,61 @@
+process:
+  id: '44004'
+  name: 'TODO: Name des Prozesses für Prüfidentifikator 44004'
+  category: GPKE
+  version: 'TODO: 2.6'
+  description: >-
+    TODO: Detaillierte Beschreibung des Geschäftsprozesses, der mit dem Prüfidentifikator 44004 in der Kategorie GPKE
+    verbunden ist. Aktuell keine spezifischen Informationen in der Wissensdatenbank verfügbar.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - afe81581-1394-43ac-86b4-012be9ee9ccf
+      - ec537f30-a130-4f23-bf53-0f5a7d5ee3dd
+      - 8aa06033-fd7c-4edd-91e0-afec10467968
+      - f49b4533-88ac-4200-8643-bcd9c48567d5
+      - e9d4a190-4c61-48b2-b0da-4c1fbed197c9
+      - 79a9e6b9-9c44-4944-9110-5dd8c4da765b
+      - cd38f4a0-6810-4f13-9e99-61ade459a94c
+      - 9960ee29-c05c-4554-b0cd-1fdaecc2ccdf
+      - b3b93277-f857-4625-86f5-cea471f2a732
+      - 6019ac2b-15c1-4d1e-a672-badfe37887a8
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 44004 (gpke).
+    total_results: 10
+    search_duration_ms: 1978
+    response_format: json
+    captured_at: '2025-10-21T12:05:38.149Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '44004'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. LF, MSB, NB)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. NB, LF, MSB)'
+  description: 'TODO: Beschreibung des auslösenden Ereignisses/Nachricht für Prüfidentifikator 44004.'
+responses:
+  - message_type: ORDRSP
+    pruefidentifikator: '44004'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 44004.
+    max_wait_days: 5
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Reaktion
+    is_final: false
+    timeout_days: 10
+    expected_responses:
+      - '44004'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: BeispielFeld'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

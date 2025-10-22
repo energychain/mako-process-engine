@@ -1,0 +1,63 @@
+process:
+  id: process-gpke-b002
+  name: Prozess GPKE_B002
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 05187cac-81ef-5c87-a6f3-94cdefd8bd1e
+      - 06db483f-9d0e-5cf0-ac85-fd911dbd1045
+      - 07585352-342d-5857-91b3-faa169b7abf8
+      - 0a045f69-ed6f-5532-9ad0-4c1a9209fcb8
+      - 0b690a6f-dd17-5c45-b55e-46e5bcc73c64
+      - 1370e6a1-2ea4-5046-a288-35b32fc4c791
+      - 13a42612-d0bf-5d60-b8bb-bb01ab098163
+      - 1633679e-6c1c-50cc-a772-7a4a55367d68
+      - 17c03838-466e-59bc-84a6-3439efa21f99
+      - 84033ce2-c6e2-5809-9823-ec311784f0ee
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_B002 (gpke).
+    total_results: 10
+    search_duration_ms: 2045
+    response_format: text
+    raw_response: >-
+      Als Mako Willi, Ihr AI-Coach von Stromhaltig, muss ich Ihnen mitteilen, dass die spezifischen Details zur
+      Prozessdefinition für den Prüfidentifikator GPKE_B002, wie sie in Ihrem gewünschten JSON-Format benötigt werden,
+      nicht explizit in meiner Wissensdatenbank vorhanden sind. Die bereitgestellten Kontextauszüge beziehen sich auf
+      "Codeliste der Artikelnummern und Artikel-ID" und enthalten keine Informationen, die zur Erstellung einer
+      vollständigen Prozessdefinition für GPKE_B002 herangezogen werden könnten.
+
+
+      Ich kann Ihnen daher diese spezifische Anfrage im Moment nicht mit den erforderlichen präzisen Details
+      beantworten.
+    captured_at: '2025-10-21T08:48:00.330Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00002'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00002'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00002.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00002'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

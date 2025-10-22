@@ -1,0 +1,60 @@
+process:
+  id: process-wim-047
+  name: Prozess WiM_047
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 7e8eaa34-608d-55eb-81a2-0b69884c3007
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 8a18b4c9-1ae1-5188-b6ab-fdd92a86f071
+      - bfe25f72-809c-51e7-9a35-73a491ce4a0e
+      - 48f0d353-bb7e-5925-8f76-1a57e7d95ff5
+      - b0e41e96-1aa2-4299-ad2a-81700d1bb6f7
+      - 524db5ae-5905-49f7-a804-21f97cb2c087
+      - be81b4e0-f1ea-4bd0-bf06-d0fe043c7d7c
+      - 9deed57c-0f5a-44e6-a61e-c83be932cf88
+      - e72f3972-f2d8-4291-99ea-68ff5dc6ec52
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_047 (gpke).
+    total_results: 10
+    search_duration_ms: 2257
+    response_format: text
+    raw_response: >-
+      Es tut mir leid, aber der spezifische Prüfidentifikator "WiM_047" konnte in den bereitgestellten Kontextauszügen
+      nicht gefunden werden. Daher kann ich keine vollständige Prozessdefinition dafür erstellen.
+
+
+      Die Wissensbasis enthält Informationen zu anderen Prüfidentifikatoren, wie z.B. "21047 GPKE /
+      Bearbeitungsstandsmeldung", jedoch keine Details zu "WiM_047".
+    captured_at: '2025-10-21T08:46:43.847Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00047'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00047'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00047.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00047'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

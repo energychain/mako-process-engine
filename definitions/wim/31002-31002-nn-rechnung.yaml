@@ -1,0 +1,75 @@
+process:
+  id: 31002-nn-rechnung
+  name: NN-Rechnung
+  category: WiM
+  version: '2.6'
+  description: Prozess zur Abrechnung von Netznutzungsentgelten (NN-Rechnung).
+  bdew_reference: Anwendungsübersicht der Prüfidentifikatoren
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - dce490a2-ee58-5cfc-9534-d2d032e46542
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31002 (wim).
+    total_results: 10
+    search_duration_ms: 1972
+    response_format: json
+    captured_at: '2025-10-21T12:19:42.341Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31002'
+  direction: outbound
+  sender_role: NB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Positive oder negative Empfangsbestätigung der Rechnung
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Warte auf Empfangsbestätigung der Rechnung
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+  completed:
+    name: Rechnungsprozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Rechnungsbetrag
+    rule: exists
+    message: Der Rechnungsbetrag muss vorhanden sein.
+    severity: error
+  - field: Rechnungsdatum
+    rule: not_empty
+    message: Das Rechnungsdatum muss angegeben werden.
+    severity: error
+  - field: Marktlokations-ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: Marktlokations-ID
+    rule: valid_mp_id
+    message: Die angegebene Marktlokations-ID ist ungültig.
+    severity: error
+  - field: Fälligkeitsdatum
+    rule: future_date
+    message: Das Fälligkeitsdatum sollte in der Zukunft liegen.
+    severity: warning
+documentation: {}

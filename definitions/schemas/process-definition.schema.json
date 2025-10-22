@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["process", "trigger", "states"],
+  "properties": {
+    "process": {
+      "type": "object",
+      "required": ["id", "name", "category"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "category": { "enum": ["GPKE", "WiM", "GeLi Gas", "MaBiS"] },
+        "version": { "type": "string" },
+        "description": { "type": "string" },
+        "bdew_reference": { "type": "string" },
+        "willi_mako_context": {
+          "type": "object",
+          "properties": {
+            "knowledge_base_ids": { "type": "array", "items": { "type": "string" } },
+            "last_synced": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["message_type", "pruefidentifikator"],
+      "properties": {
+        "message_type": { "enum": ["UTILMD", "MSCONS", "ORDERS", "ORDRSP", "INVOIC", "APERAK", "CONTRL"] },
+        "pruefidentifikator": { "type": "string", "pattern": "^\\d{5}$" },
+        "direction": { "enum": ["inbound", "outbound", "bidirectional"] },
+        "sender_role": { "type": "string" },
+        "receiver_role": { "type": "string" }
+      }
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["message_type", "pruefidentifikator"],
+        "properties": {
+          "message_type": { "type": "string" },
+          "pruefidentifikator": { "type": "string" },
+          "direction": { "type": "string" },
+          "max_wait_days": { "type": "number" },
+          "max_wait_business_days": { "type": "number" },
+          "transitions_to": { "type": "string" },
+          "probability": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "states": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "is_final": { "type": "boolean" },
+            "timeout_days": { "type": "number" },
+            "on_timeout": { "type": "string" },
+            "metadata": { "type": "object" }
+          }
+        }
+      }
+    },
+    "validations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": { "type": "string" },
+          "rule": { "type": "string" },
+          "message": { "type": "string" },
+          "severity": { "enum": ["error", "warning", "info"] }
+        }
+      }
+    }
+  }
+}

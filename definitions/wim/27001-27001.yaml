@@ -1,0 +1,71 @@
+process:
+  id: '27001'
+  name: Anmeldung nach WiM (Prüfidentifikator 27001)
+  category: WiM
+  version: '2.6'
+  description: >-
+    Dieser Prozess beschreibt die Anmeldung eines Vorgangs gemäß den Regeln der Marktkommunikation im Bereich WiM,
+    identifiziert durch den Prüfidentifikator 27001. Er dient als Referenznummer für den Anmeldevorgang, wie in
+    REQOTE_MIG_1_3b_20241001.pdf im SG1 beschrieben.
+  bdew_reference: REQOTE_MIG_1_3b_20241001.pdf, PID_3_2_Konsultationsfassung_20250203.pdf
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - d1b96f70-a696-4ee0-900a-2d549a0c767c
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 829a4baa-56a2-4078-b234-012829df521b
+      - f8c379dc-1bd6-4170-b160-013564e44d83
+      - 0abbecb3-0770-4964-a334-1142fc11bab6
+      - 6e1dd20a-1c7d-4da2-9134-f2e9fdd49bef
+      - 6f41da4b-6d58-4852-801b-51a2e941dff8
+      - 8c5d646b-7ab1-4273-a4ac-b2cea97b8b82
+      - ea09ee33-de36-4087-a6ce-5f47b52ed36a
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 27001 (wim).
+    total_results: 10
+    search_duration_ms: 1818
+    response_format: json
+    captured_at: '2025-10-21T12:25:35.697Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '27001'
+  direction: outbound
+  sender_role: MARKTTEILNEHMER (Z.B. MSB, LF)
+  receiver_role: MARKTTEILNEHMER (Z.B. NB)
+responses:
+  - message_type: ORDRSP
+    pruefidentifikator: '80000'
+    direction: outbound
+    description: Bestätigung oder Ablehnung des Anmeldevorgangs.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending_acknowledgement:
+    name: Warten auf Bestätigung der Anmeldung
+    is_final: false
+    timeout_days: 10
+    expected_responses:
+      - '00000'
+  completed:
+    name: Anmeldung abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '80000'
+validations:
+  - field: RFF (Prüfidentifikator)
+    rule: exists
+    message: Der Prüfidentifikator 27001 muss im RFF Segment (SG1) der REQOTE-Nachricht vorhanden sein.
+    severity: error
+  - field: RFF (Prüfidentifikator)
+    rule: not_empty
+    message: Der Prüfidentifikator 27001 im RFF Segment darf nicht leer sein.
+    severity: error
+documentation: {}

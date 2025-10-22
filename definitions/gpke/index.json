@@ -1,0 +1,55 @@
+{
+  "category": "GPKE",
+  "version": "2.6",
+  "generated_at": "2025-10-21T12:08:01.771Z",
+  "processes": [
+    {
+      "id": "27003-process",
+      "pruefidentifikator": "27003",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 27003",
+      "file": "27003-27003-process.yaml"
+    },
+    {
+      "id": "44001",
+      "pruefidentifikator": "44001",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 44001",
+      "file": "44001-44001.yaml"
+    },
+    {
+      "id": "44002",
+      "pruefidentifikator": "44002",
+      "name": "TODO: Process Name for 44002",
+      "file": "44002-44002.yaml"
+    },
+    {
+      "id": "44003",
+      "pruefidentifikator": "44003",
+      "name": "TODO: Prozessname für Prüfidentifikator 44003 (Nicht explizit im Kontext gefunden)",
+      "file": "44003-44003.yaml"
+    },
+    {
+      "id": "44004",
+      "pruefidentifikator": "44004",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 44004",
+      "file": "44004-44004.yaml"
+    },
+    {
+      "id": "44016",
+      "pruefidentifikator": "44016",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 44016 (z.B. Stammdatenänderung)",
+      "file": "44016-44016.yaml"
+    },
+    {
+      "id": "55644",
+      "pruefidentifikator": "55644",
+      "name": "TODO: Prozessname für Prüfidentifikator 55644 (GPKE)",
+      "file": "55644-55644.yaml"
+    },
+    {
+      "id": "todo",
+      "pruefidentifikator": "55654",
+      "name": "Änderung X",
+      "file": "55654-todo.yaml"
+    }
+  ]
+}

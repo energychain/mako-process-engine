@@ -1,0 +1,83 @@
+process:
+  id: '23001'
+  name: Störungsmeldung im Messwesen
+  category: WiM
+  version: '2.6'
+  description: >-
+    Bearbeitung von Störungsmeldungen oder Informationen im Rahmen der Wechselprozesse im Messwesen (WiM) mittels
+    INSRPT.
+  bdew_reference: INSRPT AHB
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 6f41da4b-6d58-4852-801b-51a2e941dff8
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 2a4badef-c6b8-4210-9ada-8933ede334cd
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 829a4baa-56a2-4078-b234-012829df521b
+      - f8c379dc-1bd6-4170-b160-013564e44d83
+      - 17065b45-8fce-5480-8e68-96370b21205d
+      - 1a518998-0752-5c29-badf-d44f144ce389
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23001 (wim).
+    total_results: 10
+    search_duration_ms: 1803
+    response_format: json
+    captured_at: '2025-10-21T12:14:31.073Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '23001'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '23001'
+    direction: outbound
+    description: Bestätigung des Empfangs der Störungsmeldung.
+    max_wait_days: 2
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '23001'
+    direction: outbound
+    description: Ablehnung der Störungsmeldung aufgrund fachlicher Fehler.
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Wartet auf Empfangsbestätigung oder Ablehnung
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '23001'
+  completed:
+    name: Störungsmeldung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: UNH.0062
+    rule: not_empty
+    message: Nachrichtenreferenznummer im UNH-Segment muss vorhanden sein.
+    severity: error
+  - field: NAD.MPID_Sender
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Senders ist ungültig oder fehlt.
+    severity: error
+  - field: NAD.MPID_Empfänger
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Empfängers ist ungültig oder fehlt.
+    severity: error
+  - field: DTM.Dokumentendatum
+    rule: exists
+    message: Das Dokumentendatum im DTM-Segment muss vorhanden sein.
+    severity: error
+  - field: SG4.RFF.Pruefidentifikator
+    rule: exists
+    message: Der Prüfidentifikator im RFF-Segment (SG4) muss vorhanden sein.
+    severity: error
+documentation: {}

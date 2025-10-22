@@ -1,0 +1,81 @@
+process:
+  id: '19015'
+  name: 'TODO: Name des WiM-Prozesses für Prüfidentifikator 19015'
+  category: WiM
+  version: '2.6'
+  description: >-
+    TODO: Detaillierte Beschreibung des Prozesses, der durch Prüfidentifikator 19015 initiiert oder beeinflusst wird.
+    Basierend auf der Kategorie 'WiM' könnte dies ein Stammdaten-, Vertrags-, oder Informationsaustauschprozess sein,
+    z.B. eine spezifische Meldung im Rahmen der Marktkommunikation.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - 90f6d24b-d155-5076-bfd6-995af161472a
+      - 5e8f47e1-a55c-5203-a537-f660655ecba9
+      - 69ec604c-3cb0-5be0-b86d-43a219ecf32a
+      - 8185a4bb-38d9-5829-ae27-08b4fa5cf9a4
+      - d0ce436a-bdb6-517a-a138-f0f01c39c7cd
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 19015 (wim).
+    total_results: 10
+    search_duration_ms: 1857
+    response_format: json
+    captured_at: '2025-10-21T12:09:19.553Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '19015'
+  direction: bidirectional
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. LF = LIEFERANT, NB = NETZBETREIBER, MSB = MESSSTELLENBETREIBER)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. LF = LIEFERANT, NB = NETZBETREIBER, MSB = MESSSTELLENBETREIBER)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00001'
+    direction: bidirectional
+    description: Technische Bestätigung der empfangenen Nachricht (APERAK)
+    max_wait_days: 1
+    transitions_to: pending
+  - message_type: UTILMD
+    pruefidentifikator: '19016'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 19016.
+    max_wait_days: 7
+    transitions_to: completed
+states:
+  pending:
+    name: Warte auf fachliche Antwort
+    is_final: false
+    timeout_days: 7
+    expected_responses:
+      - '00000'
+      - '00001'
+      - '19016'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: RFF+Z13
+    rule: exists
+    message: Der Prüfidentifikator (RFF+Z13) muss vorhanden sein.
+    severity: error
+  - field: NAD+MS
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Absenders (NAD+MS) ist ungültig.
+    severity: error
+  - field: NAD+MR
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Empfängers (NAD+MR) ist ungültig.
+    severity: error
+  - field: DTM+137
+    rule: future_date
+    message: Das Datum (DTM+137) liegt in der Vergangenheit und sollte geprüft werden.
+    severity: warning
+documentation: {}

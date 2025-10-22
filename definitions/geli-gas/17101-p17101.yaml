@@ -1,0 +1,74 @@
+process:
+  id: p17101
+  name: Anfrage Stammdaten Marktlokation
+  category: GeLi Gas
+  version: '2.6'
+  description: Anfrage von Stammdaten einer Marktlokation im Gasbereich vom Lieferanten (LF) an den Netzbetreiber (NB).
+  bdew_reference: BDEW Anwendungsübersicht der Prüfidentifikatoren
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - edbd3550-9251-595b-bbe7-af938b2d69ac
+      - 05d1d66a-6552-51f5-9f77-7318211511bb
+      - 65f585d0-325b-574a-ab7c-85945cb18d1d
+      - 2fbfcb6b-aceb-5d05-90ad-f0e1a449c3ff
+      - 47550eba-8ace-5e50-b9cc-d310e0e39599
+      - a1285fde-5b76-5364-a68e-785ba9f9d33a
+      - d83852b6-9eba-5ed9-8774-658cc27351bb
+      - 10c59925-6a83-52b7-966a-3c32eeb8fa52
+      - 0190a7a4-4ed5-41cb-979d-3260c2c91800
+      - af2d5dcb-6bff-4a66-85f0-53d36155046a
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 17101 (geli-gas).
+    total_results: 10
+    search_duration_ms: 1829
+    response_format: json
+    captured_at: '2025-10-21T12:26:54.232Z'
+trigger:
+  message_type: ORDERS
+  pruefidentifikator: '17101'
+  direction: outbound
+  sender_role: LF
+  receiver_role: NB
+responses:
+  - message_type: UTILMD
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Antwort mit angefragten Stammdaten der Marktlokation.
+    max_wait_days: 3
+    transitions_to: completed
+  - message_type: ORDRSP
+    pruefidentifikator: '19123'
+    direction: outbound
+    description: Ablehnung der Stammdatenanfrage.
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Stammdatenantwort
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '00000'
+      - '19123'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokations-ID
+    rule: exists
+    message: Die Marktlokations-ID muss in der Anfrage vorhanden sein.
+    severity: error
+  - field: Marktlokations-ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss genau 11 Zeichen lang sein.
+    severity: error
+  - field: Prüfidentifikator
+    rule: not_empty
+    message: Der Prüfidentifikator darf nicht leer sein.
+    severity: error
+documentation: {}

@@ -1,0 +1,61 @@
+process:
+  id: process-23011
+  name: Prozess 23011
+  category: WiM
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 06ddebe1-ca65-517b-8e76-5055fe297fb5
+      - 7f64d4db-1a45-5b5c-933d-a209c57b4162
+      - f590644f-2f89-5b64-961b-55a4b4bcf31e
+      - 25992efd-5da4-51f9-b278-03ee671d5fb9
+      - 5e8f47e1-a55c-5203-a537-f660655ecba9
+      - 90f6d24b-d155-5076-bfd6-995af161472a
+      - 00642a83-434f-5f38-8bae-a497e65da523
+      - ab944615-1959-5092-9cac-2441e6fbf81e
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23011 (wim).
+    total_results: 10
+    search_duration_ms: 1879
+    response_format: text
+    raw_response: >-
+      Es tut mir leid, aber der angefragte Prüfidentifikator "23011" konnte in den bereitgestellten Kontextauszügen
+      nicht gefunden werden. Die vorliegenden Informationen beziehen sich auf die Prüfidentifikatoren "21029", "21030"
+      und "21031".
+
+
+      Bitte stellen Sie sicher, dass der korrekte Prüfidentifikator angegeben ist oder liefern Sie zusätzlichen Kontext
+      für "23011".
+    captured_at: '2025-10-21T12:17:51.337Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '23011'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '23011'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 23011.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '23011'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations: []
+documentation: {}

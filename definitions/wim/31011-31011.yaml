@@ -1,0 +1,64 @@
+process:
+  id: '31011'
+  name: Mitteilung über Abmeldung einer Marktlokation
+  category: WiM
+  version: '2.6'
+  description: Mitteilung über die Abmeldung einer Marktlokation vom Messstellenbetreiber (MSB) an den Lieferanten (LF).
+  bdew_reference: IFTSTA AHB
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - f590644f-2f89-5b64-961b-55a4b4bcf31e
+      - 25992efd-5da4-51f9-b278-03ee671d5fb9
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 90f6d24b-d155-5076-bfd6-995af161472a
+      - 5e8f47e1-a55c-5203-a537-f660655ecba9
+      - 4a438346-dedd-1b8e-df6e-c471837c4f84
+      - 7f64d4db-1a45-5b5c-933d-a209c57b4162
+      - 06ddebe1-ca65-517b-8e76-5055fe297fb5
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31011 (wim).
+    total_results: 10
+    search_duration_ms: 1796
+    response_format: json
+    captured_at: '2025-10-21T12:24:58.982Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '31011'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '31011'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 31011.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Empfangsbestätigung der Abmeldung
+    is_final: false
+    timeout_days: 3
+    expected_responses:
+      - '00000'
+      - '31011'
+  completed:
+    name: Abmeldung erfolgreich verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Marktlokations-ID
+    rule: valid_mp_id
+    message: Die übermittelte Marktlokations-ID ist ungültig oder fehlt.
+    severity: error
+  - field: Identifikationskriterien für ZO-F2
+    rule: exists
+    message: Die für die Zuordnung gemäß ZO-F2 benötigten Identifikationskriterien fehlen oder sind unvollständig.
+    severity: error
+documentation: {}

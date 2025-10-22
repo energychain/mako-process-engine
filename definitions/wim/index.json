@@ -1,0 +1,193 @@
+{
+  "category": "WiM",
+  "version": "3.1",
+  "generated_at": "2025-10-21T12:26:24.430Z",
+  "processes": [
+    {
+      "id": "17009",
+      "pruefidentifikator": "17009",
+      "name": "Anfrage Stammdaten Marktlokation",
+      "file": "17009-17009.yaml"
+    },
+    {
+      "id": "19015",
+      "pruefidentifikator": "19015",
+      "name": "TODO: Name des WiM-Prozesses für Prüfidentifikator 19015",
+      "file": "19015-19015.yaml"
+    },
+    {
+      "id": "23001",
+      "pruefidentifikator": "23001",
+      "name": "Störungsmeldung im Messwesen",
+      "file": "23001-23001.yaml"
+    },
+    {
+      "id": "23003",
+      "pruefidentifikator": "23003",
+      "name": "Ablehnung einer WiM-Meldung",
+      "file": "23003-23003.yaml"
+    },
+    {
+      "id": "pruefidentifikator-23004",
+      "pruefidentifikator": "23004",
+      "name": "WiM Bestätigung durch MSB",
+      "file": "23004-pruefidentifikator-23004.yaml"
+    },
+    {
+      "id": "23005-wim-todo",
+      "pruefidentifikator": "23005",
+      "name": "WiM Prozess für Prüfidentifikator 23005 (TODO: Detaillierte Beschreibung)",
+      "file": "23005-23005-wim-todo.yaml"
+    },
+    {
+      "id": "wim-ergebnisbericht-23008",
+      "pruefidentifikator": "23008",
+      "name": "WiM Ergebnisbericht",
+      "file": "23008-wim-ergebnisbericht-23008.yaml"
+    },
+    {
+      "id": "process-23009",
+      "pruefidentifikator": "23009",
+      "name": "Prozess 23009",
+      "file": "23009-process-23009.yaml"
+    },
+    {
+      "id": "process-23011",
+      "pruefidentifikator": "23011",
+      "name": "Prozess 23011",
+      "file": "23011-process-23011.yaml"
+    },
+    {
+      "id": "23012",
+      "pruefidentifikator": "23012",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 23012",
+      "file": "23012-23012.yaml"
+    },
+    {
+      "id": "27001",
+      "pruefidentifikator": "27001",
+      "name": "Anmeldung nach WiM (Prüfidentifikator 27001)",
+      "file": "27001-27001.yaml"
+    },
+    {
+      "id": "27002",
+      "pruefidentifikator": "27002",
+      "name": "TODO: Name für Prüfidentifikator 27002",
+      "file": "27002-27002.yaml"
+    },
+    {
+      "id": "todo",
+      "pruefidentifikator": "27003",
+      "name": "TODO",
+      "file": "27003-todo.yaml"
+    },
+    {
+      "id": "31001",
+      "pruefidentifikator": "31001",
+      "name": "Abschlagsrechnung",
+      "file": "31001-31001.yaml"
+    },
+    {
+      "id": "31002-nn-rechnung",
+      "pruefidentifikator": "31002",
+      "name": "NN-Rechnung",
+      "file": "31002-31002-nn-rechnung.yaml"
+    },
+    {
+      "id": "31003",
+      "pruefidentifikator": "31003",
+      "name": "WiM-Rechnung",
+      "file": "31003-31003.yaml"
+    },
+    {
+      "id": "31004",
+      "pruefidentifikator": "31004",
+      "name": "Stornorechnung Bedingung",
+      "file": "31004-31004.yaml"
+    },
+    {
+      "id": "31005",
+      "pruefidentifikator": "31005",
+      "name": "MMM-Rechnung",
+      "file": "31005-31005.yaml"
+    },
+    {
+      "id": "31006",
+      "pruefidentifikator": "31006",
+      "name": "Mehr-/Mindermengen (MMM) selbstausgestellte Rechnung",
+      "file": "31006-31006.yaml"
+    },
+    {
+      "id": "31007",
+      "pruefidentifikator": "31007",
+      "name": "Aggregierte Mehr-/Mindermenge",
+      "file": "31007-31007.yaml"
+    },
+    {
+      "id": "31008-aggr-mmm-selbst-rechnung",
+      "pruefidentifikator": "31008",
+      "name": "Aggregierte Mehr-/Mindermenge – selbst ausgestellte Rechnung",
+      "file": "31008-31008-aggr-mmm-selbst-rechnung.yaml"
+    },
+    {
+      "id": "31009",
+      "pruefidentifikator": "31009",
+      "name": "MSB-Rechnung",
+      "file": "31009-31009.yaml"
+    },
+    {
+      "id": "31010",
+      "pruefidentifikator": "31010",
+      "name": "Kapazitätsrechnung",
+      "file": "31010-31010.yaml"
+    },
+    {
+      "id": "31011",
+      "pruefidentifikator": "31011",
+      "name": "Mitteilung über Abmeldung einer Marktlokation",
+      "file": "31011-31011.yaml"
+    },
+    {
+      "id": "37000",
+      "pruefidentifikator": "37000",
+      "name": "TODO: Prozessname für Prüfidentifikator 37000",
+      "file": "37000-37000.yaml"
+    },
+    {
+      "id": "37001",
+      "pruefidentifikator": "37001",
+      "name": "TODO: Name des Prozesses für Prüfidentifikator 37001 (z.B. Stammdatenänderung)",
+      "file": "37001-37001.yaml"
+    },
+    {
+      "id": "37002",
+      "pruefidentifikator": "37002",
+      "name": "Prozess für Prüfidentifikator 37002 (WiM)",
+      "file": "37002-37002.yaml"
+    },
+    {
+      "id": "37003",
+      "pruefidentifikator": "37003",
+      "name": "Übermittlung Kommunikationsdaten des BKV",
+      "file": "37003-37003.yaml"
+    },
+    {
+      "id": "37004-stammdaten-aenderung-mitteilung",
+      "pruefidentifikator": "37004",
+      "name": "Mitteilung Stammdatenänderung",
+      "file": "37004-37004-stammdaten-aenderung-mitteilung.yaml"
+    },
+    {
+      "id": "37005",
+      "pruefidentifikator": "37005",
+      "name": "Datenänderung / Mitteilung (WiM)",
+      "file": "37005-37005.yaml"
+    },
+    {
+      "id": "37006",
+      "pruefidentifikator": "37006",
+      "name": "TODO: Name des Anwendungsfalls für Prüfidentifikator 37006",
+      "file": "37006-37006.yaml"
+    }
+  ]
+}

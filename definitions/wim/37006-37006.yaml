@@ -1,0 +1,84 @@
+process:
+  id: '37006'
+  name: 'TODO: Name des Anwendungsfalls für Prüfidentifikator 37006'
+  category: WiM
+  version: '2.6'
+  description: >-
+    Ein generischer Datenaustauschprozess innerhalb der Marktkommunikation WiM. Spezifische Details für diesen
+    Prüfidentifikator sind nicht in der vorliegenden Wissensbasis enthalten und müssen ergänzt werden.
+  bdew_reference: Anwendungsübersicht der Prüfidentifikatoren 3.1
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 54e86681-2d27-5df4-b643-ea4823434def
+      - e9d4a190-4c61-48b2-b0da-4c1fbed197c9
+      - fb36a720-c62e-436a-83bd-48039fe57ba1
+      - 5fe014ca-ee15-484b-80d8-e71413442521
+      - ec537f30-a130-4f23-bf53-0f5a7d5ee3dd
+      - 2311a41b-d773-474c-affa-ca645fee36d3
+      - 26eb3776-ca5a-45ea-a416-de217d544879
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37006 (wim).
+    total_results: 10
+    search_duration_ms: 1783
+    response_format: json
+    captured_at: '2025-10-21T12:13:53.054Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37006'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. NB, MSB, LF)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. NB, MSB, LF)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '11001'
+    direction: outbound
+    description: Positive technische Empfangsbestätigung für die UTILMD-Nachricht 37006.
+    max_wait_days: 1
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '11002'
+    direction: outbound
+    description: Negative technische Empfangsbestätigung für die UTILMD-Nachricht 37006 (z.B. Syntaxfehler).
+    max_wait_days: 1
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf technische Bestätigung
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '11001'
+      - '11002'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: Nachrichten-Kopfsegment (UNH)
+    rule: exists
+    message: Das Nachrichten-Kopfsegment (UNH) fehlt.
+    severity: error
+  - field: Beginn der Nachricht (BGM)
+    rule: exists
+    message: Das Segment 'Beginn der Nachricht' (BGM) fehlt.
+    severity: error
+  - field: Dokumentendatum (DTM)
+    rule: exists
+    message: Das Dokumentendatum (DTM) ist nicht vorhanden.
+    severity: error
+  - field: Marktpartner-ID (Absender)
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Absenders ist ungültig oder fehlt.
+    severity: error
+  - field: Marktpartner-ID (Empfänger)
+    rule: valid_mp_id
+    message: Die Marktpartner-ID des Empfängers ist ungültig oder fehlt.
+    severity: error
+documentation: {}

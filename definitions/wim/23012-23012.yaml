@@ -1,0 +1,58 @@
+process:
+  id: '23012'
+  name: 'TODO: Name des Prozesses für Prüfidentifikator 23012'
+  category: WiM
+  version: '2.6'
+  description: 'TODO: Beschreibung des Prozesses für Prüfidentifikator 23012'
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 8e014700-b1e1-5eed-aeea-5ce8cdc156cd
+      - 45e1eed3-6696-507c-af2f-55d31b970ab8
+      - 9ccf1a7f-ac0d-5544-88cb-da90e741b82d
+      - 41f3c119-47e6-5ec3-a4a8-72a69a49df94
+      - 4de6d2d0-6323-5915-8a73-9bf713c8a7e8
+      - 3af396d2-55b8-5bb1-8f0a-ea0aa2185bf7
+      - 25992efd-5da4-51f9-b278-03ee671d5fb9
+      - f590644f-2f89-5b64-961b-55a4b4bcf31e
+      - 06ddebe1-ca65-517b-8e76-5055fe297fb5
+      - 7f64d4db-1a45-5b5c-933d-a209c57b4162
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 23012 (wim).
+    total_results: 10
+    search_duration_ms: 2094
+    response_format: json
+    captured_at: '2025-10-21T12:18:30.036Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '23012'
+  direction: bidirectional
+  sender_role: TODO
+  receiver_role: TODO
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 0
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort (TODO)
+    is_final: false
+    timeout_days: 0
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: TODO
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

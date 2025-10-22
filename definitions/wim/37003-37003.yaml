@@ -1,0 +1,62 @@
+process:
+  id: '37003'
+  name: Übermittlung Kommunikationsdaten des BKV
+  category: WiM
+  version: '3.1'
+  description: Übermittlung von Kommunikationsdaten des Bilanzkreisverantwortlichen (BKV) an den Netzbetreiber (NB).
+  bdew_reference: GPKE Teil 4
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - 4dded481-5585-53e0-9068-30cce81a3082
+      - 1a518998-0752-5c29-badf-d44f144ce389
+      - e9925758-d907-51f0-b3ad-3443c4f78547
+      - dbd1cbd8-608d-5003-b491-9beb2795ea12
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 7a5f3933-f5d3-5e66-b4d9-531a0f661992
+      - 9ef32157-b027-47f3-8db4-f9805d706513
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - e3639667-631a-4ee8-a8bf-0ea4637075f6
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37003 (wim).
+    total_results: 10
+    search_duration_ms: 1788
+    response_format: json
+    captured_at: '2025-10-21T12:11:21.463Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37003'
+  direction: outbound
+  sender_role: BKV
+  receiver_role: NB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Technische Bestätigung der Übermittlung der Kommunikationsdaten
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf technische Bestätigung
+    is_final: false
+    expected_responses:
+      - '00000'
+  completed:
+    name: Kommunikationsdaten übermittelt
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: BKV_EIC_CODE
+    rule: exists
+    message: Der EIC-Code des BKV muss 16 Zeichen lang sein.
+    severity: error
+  - field: MESSAGE_SYNTAX
+    rule: exists
+    message: Die übermittelte EDIFACT-Nachricht ist syntaktisch ungültig.
+    severity: error
+documentation: {}

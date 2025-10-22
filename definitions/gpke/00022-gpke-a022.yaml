@@ -1,0 +1,55 @@
+process:
+  id: gpke-a022
+  name: Prozessdefinition für Prüfidentifikator GPKE_A022
+  category: GPKE
+  version: N/A
+  description: >-
+    Detaillierte Informationen für den Prüfidentifikator GPKE_A022 konnten in den bereitgestellten Kontextauszügen nicht
+    gefunden werden.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - c11936e9-1b63-46c8-a628-2966d9ef9d49
+      - 8ae7b6e0-eda3-5128-80ab-415d67aeb5e1
+      - c4fa97b9-c637-5c26-ac21-39517ef1c7f1
+      - 98b68fa5-f15e-5585-85c4-668153925057
+      - bfc0f729-6c64-589c-b277-7771b9013fd0
+      - 4cb80e3a-3a17-5d30-88a6-523ced68f788
+      - ef889753-c7b3-54fb-90ed-23473f2b5123
+      - 40df8e02-b680-54ef-ab80-726db315d422
+      - f7cff05f-f51d-563c-a429-700189a8220b
+      - 06195ed6-691d-57c3-a2f6-4ebfa96443dc
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_A022 (gpke).
+    total_results: 10
+    search_duration_ms: 2114
+    response_format: json
+    captured_at: '2025-10-21T08:48:24.375Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00022'
+  direction: bidirectional
+  sender_role: N/A
+  receiver_role: N/A
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00022'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00022.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00022'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

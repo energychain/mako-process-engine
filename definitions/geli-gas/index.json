@@ -1,0 +1,19 @@
+{
+  "category": "GeLi Gas",
+  "version": "2.6",
+  "generated_at": "2025-10-21T12:27:33.138Z",
+  "processes": [
+    {
+      "id": "p17101",
+      "pruefidentifikator": "17101",
+      "name": "Anfrage Stammdaten Marktlokation",
+      "file": "17101-p17101.yaml"
+    },
+    {
+      "id": "17126",
+      "pruefidentifikator": "17126",
+      "name": "Anfrage/Bestellung einer Definition (GeLi Gas)",
+      "file": "17126-17126.yaml"
+    }
+  ]
+}

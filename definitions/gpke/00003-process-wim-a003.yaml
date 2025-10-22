@@ -1,0 +1,60 @@
+process:
+  id: process-wim-a003
+  name: Prozess WiM_A003
+  category: GPKE
+  version: '2.6'
+  description: Beschreibung wird durch Willi Mako ergänzt.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 7e8eaa34-608d-55eb-81a2-0b69884c3007
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 7a5f3933-f5d3-5e66-b4d9-531a0f661992
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - 17065b45-8fce-5480-8e68-96370b21205d
+      - c88ac4af-5ced-4a2e-a933-a3dbcb33e81d
+      - ad63db75-7e0b-4430-a90e-b90f1c7f3f59
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - ff90d232-d4f1-57fa-b4ab-8410536c7543
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_A003 (gpke).
+    total_results: 10
+    search_duration_ms: 2131
+    response_format: text
+    raw_response: >-
+      Es tut mir leid, aber die mir zur Verfügung stehenden Kontextinformationen enthalten keine Details zum
+      Prüfidentifikator "WiM_A003". Ich kann daher keine vollständige Prozessdefinition dafür erstellen.
+
+
+      Bitte stellen Sie sicher, dass die relevanten Informationen zu diesem Prüfidentifikator in der Wissensbasis
+      vorhanden sind, oder geben Sie mir weitere Details dazu.
+    captured_at: '2025-10-21T08:45:23.997Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00003'
+  direction: bidirectional
+  sender_role: UNBEKANNT
+  receiver_role: UNBEKANNT
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00003'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00003.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00003'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

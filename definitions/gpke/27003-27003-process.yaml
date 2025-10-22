@@ -1,0 +1,58 @@
+process:
+  id: 27003-process
+  name: 'TODO: Name des Prozesses für Prüfidentifikator 27003'
+  category: GPKE
+  version: '2.6'
+  description: 'TODO: Detaillierte Beschreibung des Geschäftsprozesses, der mit Prüfidentifikator 27003 verbunden ist.'
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - e9925758-d907-51f0-b3ad-3443c4f78547
+      - dbd1cbd8-608d-5003-b491-9beb2795ea12
+      - 4dded481-5585-53e0-9068-30cce81a3082
+      - 1a518998-0752-5c29-badf-d44f144ce389
+      - 6f819355-71a5-514b-a7e0-ea6e853206fb
+      - 93d46e4c-9944-59fb-a888-c11e8d21b9ea
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - 126b6a87-151e-5487-b1d5-dc5007243bff
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 27003 (gpke).
+    total_results: 10
+    search_duration_ms: 1804
+    response_format: json
+    captured_at: '2025-10-21T12:08:01.754Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '27003'
+  direction: bidirectional
+  sender_role: 'TODO: ROLLE DES SENDENDEN MARKTPARTNERS (Z.B. LF, NB, MSB)'
+  receiver_role: 'TODO: ROLLE DES EMPFANGENDEN MARKTPARTNERS (Z.B. LF, NB, MSB)'
+responses:
+  - message_type: UTILMD
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 5
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort auf 27003
+    is_final: false
+    timeout_days: 10
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess 27003 abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Relevantes Datenfeld in der Nachricht'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

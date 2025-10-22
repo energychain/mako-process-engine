@@ -1,0 +1,71 @@
+process:
+  id: gpke-036-process
+  name: Messwertanfrage
+  category: GPKE
+  version: '2.6'
+  description: Prozess zur Anforderung von Messwerten.
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - 595ed61a-2153-50ec-537b-36de9bc593c7
+      - 0eb7fe99-991d-aa93-1ec0-d53afce8ef85
+      - b2ce77e8-f36d-86c6-f11a-29160d384fd5
+      - 0b13888c-cc7c-5915-a70f-094188809e53
+      - 10339ebc-2dd7-57e7-b738-8d07ef367716
+      - 02bd7469-0472-5595-9eab-902ae55159fe
+      - 12eba314-9e27-50dd-a066-a173b8937109
+      - 160c8232-0537-588e-9713-1c08077af41d
+      - 1c0c9c06-5c84-540c-9b6a-6016c32341f5
+      - 1e071414-c401-56af-a625-c365d3d312bb
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator GPKE_036 (gpke).
+    total_results: 10
+    search_duration_ms: 2016
+    response_format: json
+    captured_at: '2025-10-21T08:44:49.457Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00036'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: VNB
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00037'
+    direction: outbound
+    description: Übermittlung der angeforderten Messwerte
+    max_wait_days: 3
+    transitions_to: messwerte_bermittelt
+states:
+  messwertangefordert:
+    name: Messwertangefordert
+    description: Messwerte wurden angefordert.
+    is_final: false
+    expected_responses: []
+  messwerte_bermittelt:
+    name: Messwerte Bermittelt
+    description: Die angeforderten Messwerte wurden übermittelt.
+    is_final: false
+    expected_responses: []
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00037'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations:
+  - field: MarktlokationsId
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss 11 Zeichen lang sein.
+    severity: error
+  - field: Messzeitpunkt
+    rule: future_date
+    message: Der Messzeitpunkt darf nicht in der Zukunft liegen.
+    severity: warning
+documentation: {}

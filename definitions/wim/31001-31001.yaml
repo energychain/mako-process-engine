@@ -1,0 +1,70 @@
+process:
+  id: '31001'
+  name: Abschlagsrechnung
+  category: WiM
+  version: '2.6'
+  description: Verarbeitung einer Abschlagsrechnung im Rahmen der Marktkommunikation, unter Berücksichtigung der WiM-Prozesse.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - b4ffcf70-d6e7-51f3-a9c7-2dd1786ac262
+      - cd75153b-a434-5e1f-bff0-0e55854713a8
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 203b5c6d-d0b8-5458-a646-4a1c6a7c22f8
+      - 193c535f-bd20-513f-a0d5-a86d327eed55
+      - 736fa192-ce52-44d6-a13a-7924e3402d67
+      - fce400be-da57-470e-be31-15c143c1b7a2
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - a9f2e405-cf38-45fb-b62f-d00ef3a4436f
+      - d0fdd910-dba1-414b-95bd-118275313685
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 31001 (wim).
+    total_results: 10
+    search_duration_ms: 1867
+    response_format: json
+    captured_at: '2025-10-21T12:19:05.525Z'
+trigger:
+  message_type: INVOIC
+  pruefidentifikator: '31001'
+  direction: outbound
+  sender_role: MSB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Empfangsbestätigung oder Fehlerbericht zur Abschlagsrechnung
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Bestätigung der Abschlagsrechnung
+    is_final: false
+    timeout_days: 3
+    expected_responses:
+      - '00000'
+  completed:
+    name: Abschlagsrechnung verarbeitet
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: MESSLOKATIONS_ID
+    rule: length_equals_11
+    message: Die Marktlokations-ID muss 11 Stellen haben.
+    severity: error
+  - field: RECHNUNGS_DATUM
+    rule: future_date
+    message: Das Rechnungsdatum darf nicht in der Zukunft liegen.
+    severity: error
+  - field: ABSENDER_EIC
+    rule: exists
+    message: Der EIC des Absenders ist obligatorisch.
+    severity: error
+  - field: BETRAG
+    rule: not_empty
+    message: Der Rechnungsbetrag muss angegeben werden.
+    severity: error
+documentation: {}

@@ -1,0 +1,53 @@
+process:
+  id: wim-a004
+  name: Unbekannt
+  category: WiM
+  version: '5.5'
+  description: Unbekannt
+  willi_mako_context:
+    session_id: 983f944d-d83b-49bd-8830-160c2865d184
+    knowledge_base_ids:
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - b5441735-258f-5070-9bda-1b2d2de3411e
+      - 17065b45-8fce-5480-8e68-96370b21205d
+      - c88ac4af-5ced-4a2e-a933-a3dbcb33e81d
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - 48f0d353-bb7e-5925-8f76-1a57e7d95ff5
+      - 8e65f9cd-12ce-4eef-90e2-b4cdca0ea465
+      - 6019ac2b-15c1-4d1e-a672-badfe37887a8
+      - ec537f30-a130-4f23-bf53-0f5a7d5ee3dd
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator WiM_A004 (gpke).
+    total_results: 10
+    search_duration_ms: 2067
+    response_format: json
+    captured_at: '2025-10-21T08:45:39.278Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '00000'
+  direction: inbound
+  sender_role: NB
+  receiver_role: LF
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: inbound
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Ausstehend
+    is_final: false
+    expected_responses:
+      - '00000'
+  completed:
+    name: Abgeschlossen
+    is_final: true
+    expected_responses: []
+    timeout_days: 0
+validations: []
+documentation: {}

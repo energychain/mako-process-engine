@@ -1,0 +1,59 @@
+process:
+  id: '37000'
+  name: 'TODO: Prozessname für Prüfidentifikator 37000'
+  category: WiM
+  version: '2.6'
+  description: 'TODO: Beschreibung des Prozesses für Prüfidentifikator 37000'
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 7a5f3933-f5d3-5e66-b4d9-531a0f661992
+      - ad63db75-7e0b-4430-a90e-b90f1c7f3f59
+      - 524db5ae-5905-49f7-a804-21f97cb2c087
+      - 331044c3-350b-41c1-9d55-c5be83815837
+      - 5442e26b-075b-43eb-bcb3-f55b1a4007ed
+      - fb36a720-c62e-436a-83bd-48039fe57ba1
+      - 8d613e61-451a-4541-887d-4893569383f2
+      - d8bd11f6-f6a9-4f6e-9c88-fc05aa201465
+      - 2311a41b-d773-474c-affa-ca645fee36d3
+      - b3b93277-f857-4625-86f5-cea471f2a732
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37000 (wim).
+    total_results: 10
+    search_duration_ms: 1859
+    response_format: json
+    captured_at: '2025-10-21T12:09:48.504Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37000'
+  direction: bidirectional
+  sender_role: 'TODO: SENDERROLLE (Z.B. NB, LF, MSB)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. NB, LF, MSB)'
+responses:
+  - message_type: UTILMD
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 0
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort für 37000
+    is_final: false
+    timeout_days: 0
+    expected_responses:
+      - '37000'
+      - '00000'
+  completed:
+    name: Prozess 37000 abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Feldname im Trigger-Dokument'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

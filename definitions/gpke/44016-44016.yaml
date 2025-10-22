@@ -1,0 +1,67 @@
+process:
+  id: '44016'
+  name: 'TODO: Name des Prozesses für Prüfidentifikator 44016 (z.B. Stammdatenänderung)'
+  category: GPKE
+  version: '2.6'
+  description: >-
+    TODO: Detaillierte Beschreibung des GPKE-Prozesses für Prüfidentifikator 44016. Dieser Prozess beschreibt eine
+    marktkommunikative Interaktion im Rahmen der GPKE.
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - e8a470f1-8afa-4065-b86c-27af0abb3860
+      - c88ac4af-5ced-4a2e-a933-a3dbcb33e81d
+      - e535d28b-b6af-fa6a-e075-1f99ad3147e3
+      - 4dd24e49-4bc1-5381-a241-fe70137cce25
+      - fee27961-49c5-413c-9509-70ccc08d25e4
+      - 8d613e61-451a-4541-887d-4893569383f2
+      - e72f3972-f2d8-4291-99ea-68ff5dc6ec52
+      - a49efe0a-2d89-48b2-97d0-47899462e634
+      - 2311a41b-d773-474c-affa-ca645fee36d3
+      - e9d4a190-4c61-48b2-b0da-4c1fbed197c9
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 44016 (gpke).
+    total_results: 10
+    search_duration_ms: 1903
+    response_format: json
+    captured_at: '2025-10-21T12:06:25.628Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '44016'
+  direction: outbound
+  sender_role: 'TODO: ABSENDERROLLE (Z.B. LF, NB, MSB)'
+  receiver_role: 'TODO: EMPFÄNGERROLLE (Z.B. NB, LF, MSB)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '11001'
+    direction: outbound
+    description: Technische Bestätigung des Empfangs der Nachricht.
+    max_wait_days: 1
+    transitions_to: completed
+  - message_type: UTILMD
+    pruefidentifikator: '00000'
+    direction: outbound
+    description: Automatische Antwort für Prüfidentifikator 00000.
+    max_wait_days: 3
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Antwort für 44016
+    is_final: false
+    timeout_days: 5
+    expected_responses:
+      - '11001'
+      - '00000'
+  completed:
+    name: Prozess 44016 abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: 'TODO: Relevantes Feld (z.B. EIC-Code der Marktlokation)'
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}

@@ -1,0 +1,66 @@
+process:
+  id: '37002'
+  name: Prozess für Prüfidentifikator 37002 (WiM)
+  category: WiM
+  version: '2.6'
+  description: >-
+    Dieser Prozess beschreibt den Anwendungsfall für den Prüfidentifikator 37002 im Rahmen der Marktkommunikation (WiM).
+    Detaillierte Spezifikationen sind den jeweiligen AHBs zu entnehmen. (TODO: Detaillierte Beschreibung)
+  willi_mako_context:
+    session_id: bda5ed94-2346-4c35-8ec7-9140ba674f0e
+    knowledge_base_ids:
+      - 3e3ad5a1-1954-8b3f-e3ca-334de00a4bb5
+      - fe3cc5c5-a930-51e9-ba24-2d6a280c30ad
+      - cfcf0c04-8949-515e-88bb-54e31a8f2422
+      - ef6caa3b-fdc2-59fe-ba57-0d19dc932432
+      - 2a283c53-d606-5b4a-b854-8ac0408339c9
+      - 27900fe1-b4fa-5e1d-966f-9619bdd6cb87
+      - 4fb145b0-f3e9-580c-8fbe-91f06f2654f4
+      - cb7f02de-e09f-5e3b-9a94-614f72480ffb
+      - 126b6a87-151e-5487-b1d5-dc5007243bff
+      - 59853e3d-0cb1-56ba-971f-1ccc31619033
+    reasoning_quality: 1
+    reasoning_iterations: 1
+    reasoning_steps: 4
+    search_query: Liste strukturierte Informationen zum Prüfidentifikator 37002 (wim).
+    total_results: 10
+    search_duration_ms: 1775
+    response_format: json
+    captured_at: '2025-10-21T12:10:46.152Z'
+trigger:
+  message_type: UTILMD
+  pruefidentifikator: '37002'
+  direction: bidirectional
+  sender_role: 'TODO: INITIATOR ROLLE (Z.B. MSB, NB, LF)'
+  receiver_role: 'TODO: EMPFÄNGER ROLLE (Z.B. MSB, NB, LF)'
+responses:
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Positive Empfangsbestätigung für 37002
+    max_wait_days: 2
+    transitions_to: completed
+  - message_type: APERAK
+    pruefidentifikator: '00000'
+    direction: bidirectional
+    description: Negative Empfangsbestätigung für 37002
+    max_wait_days: 2
+    transitions_to: completed
+states:
+  pending:
+    name: Warten auf Bestätigung (APERAK)
+    is_final: false
+    timeout_days: 2
+    expected_responses:
+      - '00000'
+  completed:
+    name: Prozess abgeschlossen
+    is_final: true
+    timeout_days: 0
+    expected_responses: []
+validations:
+  - field: TODO_FIELD_NAME
+    rule: exists
+    message: Automatisch generierte Validierung.
+    severity: error
+documentation: {}
